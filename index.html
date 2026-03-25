@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analyse - Solidité Financière (Cerfa)</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <div class="ambient-background">
+        <div class="glow glow-1"></div>
+        <div class="glow glow-2"></div>
+        <div class="glow glow-3"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-brand">
+            <i class="fa-solid fa-chart-pie"></i>
+            <span>VisionFinance <b>Tourisme</b></span>
+        </div>
+        <button id="demo-btn" class="btn-demo"><i class="fa-solid fa-magic"></i> Remplir avec un Bilan Fictif</button>
+    </nav>
+
+    <main class="dashboard-container">
+        <!-- Colonne de gauche : Saisie (Calquée sur la Liasse Fiscale) -->
+        <section class="panel panel-inputs">
+            <div class="panel-header">
+                <h2><i class="fa-solid fa-file-invoice"></i> Saisie depuis votre Liasse Fiscale</h2>
+                <p>Recopiez simplement les chiffres de votre Bilan et Compte de Résultat (Cerfa).</p>
+            </div>
+
+            <form id="financial-form">
+
+                <!-- Bilan - Actif -->
+                <div class="input-section">
+                    <h3>📄 Bilan Comptable - Actif (Cerfa 2050)</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper full-width">
+                            <label for="actif-circulant">Total de l'actif circulant</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-boxes-stacked"></i>
+                                <input type="number" id="actif-circulant" placeholder="Ligne BK (Actif Circulant Net)">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="creances-clients">Créances clients et comptes rattachés</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-users"></i>
+                                <input type="number" id="creances-clients" placeholder="Ligne BX">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="disponibilites">Disponibilités (Caisse & Banques)</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-money-bill-wave"></i>
+                                <input type="number" id="disponibilites" placeholder="Ligne CE">
+                            </div>
+                        </div>
+                        <div class="input-wrapper full-width">
+                            <label for="total-bilan">Total Général de l'Actif</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-scale-balanced"></i>
+                                <input type="number" id="total-bilan" placeholder="Ligne CO">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bilan - Passif -->
+                <div class="input-section">
+                    <h3>📄 Bilan Comptable - Passif (Cerfa 2051)</h3>
+                    <div class="input-grid">
+                        <div class="input-wrapper full-width">
+                            <label for="capitaux-propres">Total des capitaux propres</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-vault"></i>
+                                <input type="number" id="capitaux-propres" placeholder="Ligne DL">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="emprunts-bancaires">Emprunts auprès des étab. de crédit</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-building-columns"></i>
+                                <input type="number" id="emprunts-bancaires" placeholder="Ligne EU">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="acomptes-recus">Avances et acomptes reçus</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                                <input type="number" id="acomptes-recus" placeholder="Sur commandes (Ligne EW)">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="dettes-fournisseurs">Dettes fournisseurs et rattachés</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-truck"></i>
+                                <input type="number" id="dettes-fournisseurs" placeholder="Ligne EX">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="dettes-fiscales">Dettes fiscales et sociales</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-landmark"></i>
+                                <input type="number" id="dettes-fiscales" placeholder="Ligne EY">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Calcul de l'EBE (Compte Résultat détaillé) -->
+                <div class="input-section highlight-section">
+                    <h3>📊 Construction de l'EBE (Compte de Résultat)</h3>
+                    <p class="section-desc">Calcul en cascade de la Valeur Ajoutée (VA) puis de l'EBE.</p>
+                    <div class="input-grid">
+                        <div class="input-wrapper full-width">
+                            <label for="chiffre-affaires">Chiffre d'Affaires (Ventes & Prestations) <i>*</i></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-store"></i>
+                                <input type="number" id="chiffre-affaires" placeholder="Lignes FL + FM">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="achats">Achats (Consommations & Var. de stocks)</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-cart-shopping"></i>
+                                <input type="number" id="achats" placeholder="Lignes FS + FU">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="charges-externes">Autres Achats et Charges Externes</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-file-invoice"></i>
+                                <input type="number" id="charges-externes" placeholder="Ligne FW">
+                            </div>
+                        </div>
+                        <div class="input-wrapper full-width">
+                            <div class="intermediate-result">
+                                <span>Valeur Ajoutée (VA) Estimée : </span>
+                                <strong id="calc-va">0 €</strong>
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="subventions">Subventions d'Exploitation</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-hand-holding-dollar"></i>
+                                <input type="number" id="subventions" placeholder="Ligne FO">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="impots-taxes">Impôts et Taxes (ITVA)</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-landmark"></i>
+                                <input type="number" id="impots-taxes" placeholder="Exclure l'IS (Ligne FX)">
+                            </div>
+                        </div>
+                        <div class="input-wrapper full-width">
+                            <label for="charges-personnel">Charges de Personnel (Salaires + Charges) <i>*</i></label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-user-group"></i>
+                                <input type="number" id="charges-personnel" placeholder="Lignes FY + FZ">
+                            </div>
+                            <small><em>Poste critique en agence. Assurez-vous d'inclure le compte 64.</em></small>
+                        </div>
+                        <div class="input-wrapper full-width">
+                            <div class="final-result ebe-box">
+                                <i class="fa-solid fa-check-circle"></i> EBE Calculé : <strong id="calc-ebe">0
+                                    €</strong>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Vérification Rapide (Fast Track EBIT) -->
+                <div class="input-section verification-section">
+                    <h3>🔍 Vérification Sécurité (Fast-Track)</h3>
+                    <p class="section-desc">Contrôlez que l'EBE calculé est correct à partir du Résultat d'Exploitation.
+                    </p>
+                    <div class="input-grid">
+                        <div class="input-wrapper full-width">
+                            <label for="resultat-expl">Résultat d'Exploitation</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-chart-line"></i>
+                                <input type="number" id="resultat-expl" placeholder="Ligne GG">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="dotations">Dotations (Amort. & Prov.)</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-arrow-down-trend-up"></i>
+                                <input type="number" id="dotations" placeholder="Lignes GQ + GA + GB">
+                            </div>
+                        </div>
+                        <div class="input-wrapper">
+                            <label for="reprises">Reprises sur Provisions</label>
+                            <div class="input-icon-wrapper">
+                                <i class="fa-solid fa-arrow-up-right-dots"></i>
+                                <input type="number" id="reprises" placeholder="Ligne GM">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="verification-message" class="alert msg-info">
+                        Veuillez remplir les champs de vérification.
+                    </div>
+                </div>
+
+            </form>
+        </section>
+
+        <!-- Colonne de droite : Résultats & Analyse -->
+        <div class="results-column">
+            <div class="export-container" style="display: flex; justify-content: flex-end; margin-bottom: 1.5rem;">
+                <button id="export-pdf-btn" class="btn-demo" style="background: linear-gradient(135deg, var(--accent), var(--accent-hover)); color: white; border: none; font-weight: 600; padding: 0.8rem 1.5rem;"><i class="fa-solid fa-print"></i> Imprimer le Rapport</button>
+            </div>
+
+            <div id="export-content">
+            <!-- Global Assessment -->
+            <section class="panel panel-results" style="margin-bottom: 2rem;">
+                <div class="global-assessment" id="global-assessment">
+                    <div class="score-circle-container">
+                        <svg viewBox="0 0 100 100" class="score-ring">
+                            <circle cx="50" cy="50" r="45" class="ring-bg"></circle>
+                            <circle cx="50" cy="50" r="45" class="ring-progress" id="score-ring-progress"
+                                stroke-dasharray="283" stroke-dashoffset="283"></circle>
+                        </svg>
+                        <div class="score-text">
+                            <span id="score-value">0</span>
+                            <span class="score-max">/ 10</span>
+                        </div>
+                    </div>
+                    <div class="assessment-content">
+                        <h2 id="assessment-title">En attente des données (Bilan)</h2>
+                        <p id="assessment-desc">Recopiez vos chiffres comptables à gauche pour obtenir un diagnostic
+                            automatique de la solidité financière de l'agence.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Dynamic Written Advice Section -->
+            <section class="panel advice-panel" id="advice-section" style="display: none; margin-bottom: 2rem;">
+                <div class="panel-header">
+                    <h2><i class="fa-solid fa-clipboard-list"></i> Synthèse & Recommandations</h2>
+                </div>
+
+                <div class="advice-content">
+                    <div class="advice-block advice-strengths" id="advice-strengths-block">
+                        <h3><i class="fa-solid fa-thumbs-up"></i> Points Forts</h3>
+                        <ul id="list-strengths">
+                            <!-- Injected by JS -->
+                        </ul>
+                    </div>
+
+                    <div class="advice-block advice-weaknesses" id="advice-weaknesses-block">
+                        <h3><i class="fa-solid fa-triangle-exclamation"></i> Points de Vigilance & Améliorations</h3>
+                        <ul id="list-weaknesses">
+                            <!-- Injected by JS -->
+                        </ul>
+                    </div>
+
+                    <div class="advice-block advice-conclusion">
+                        <h3><i class="fa-solid fa-bullseye"></i> Conclusion Stratégique</h3>
+                        <p id="text-conclusion">Veuillez renseigner les données pour obtenir l'analyse stratégique.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Détail des indicateurs -->
+            <section class="panel panel-results" style="padding: 2rem;" id="indicators-section">
+                <div class="indicators-grid">
+
+                    <!-- 1. Liquidité -->
+                    <div class="indicator-card" id="card-liquidite">
+                        <div class="card-top">
+                            <div class="card-icon"><i class="fa-solid fa-droplet"></i></div>
+                            <span class="status-badge" id="badge-liquidite">En attente</span>
+                        </div>
+                        <h4>Test de Survie (Liquidité)</h4>
+                        <div class="card-value" id="val-liquidite">-</div>
+                        <div class="card-formula">Actif Circulant / Dettes CT (Avances + Fournisseurs + Fiscal/Social)
+                        </div>
+                        <p class="card-text" id="inter-liquidite">Indique si l'agence peut payer ses dettes à moins d'un
+                            an avec ses liquidités courantes.</p>
+                    </div>
+
+                    <!-- 2. Solvabilité -->
+                    <div class="indicator-card" id="card-independance">
+                        <div class="card-top">
+                            <div class="card-icon"><i class="fa-solid fa-shield-halved"></i></div>
+                            <span class="status-badge" id="badge-independance">En attente</span>
+                        </div>
+                        <h4>Indépendance Financière</h4>
+                        <div class="card-value" id="val-independance">-</div>
+                        <div class="card-formula">Capitaux Propres / Total Général de l'Actif</div>
+                        <p class="card-text" id="inter-independance">Mesure si l'entreprise appartient à ses
+                            actionnaires ou ses créanciers.</p>
+                    </div>
+
+                    <!-- 3. BFR -->
+                    <div class="indicator-card indicator-full" id="card-bfr">
+                        <div class="card-top">
+                            <div class="card-icon"><i class="fa-solid fa-bomb"></i></div>
+                            <span class="status-badge badge-info">Indicateur de Cash</span>
+                        </div>
+                        <h4>La "Bombe à Retardement" (BFR)</h4>
+                        <div class="card-value" id="val-bfr">-</div>
+                        <div class="card-formula">Créances - (Dettes Frs. + Acomptes + Dettes Fisc.)</div>
+                        <p class="card-text">
+                            <strong>C'est le nerf de la guerre en tourisme.</strong>
+                            Si ce chiffre diminue fortement alors que le CA baisse, l'agence consomme sa trésorerie pour
+                            rembourser ses anciens voyages.
+                        </p>
+                    </div>
+
+                    <!-- 4. Efficacité -->
+                    <div class="indicator-card" id="card-efficacite">
+                        <div class="card-top">
+                            <div class="card-icon"><i class="fa-solid fa-gears"></i></div>
+                            <span class="status-badge" id="badge-efficacite">En attente</span>
+                        </div>
+                        <h4>Efficacité Réelle</h4>
+                        <div class="card-value" id="val-efficacite">-</div>
+                        <div class="card-formula">EBE / Chiffre d'Affaires Net</div>
+                        <p class="card-text" id="inter-efficacite">La marge dégagée par l'activité "cash" de
+                            l'entreprise (L'Excédent Brut d'Exploitation).</p>
+                    </div>
+
+                    <!-- 5. Remboursement -->
+                    <div class="indicator-card" id="card-remboursement">
+                        <div class="card-top">
+                            <div class="card-icon"><i class="fa-solid fa-handshake-angle"></i></div>
+                            <span class="status-badge" id="badge-remboursement">En attente</span>
+                        </div>
+                        <h4>Capacité de Remboursement</h4>
+                        <div class="card-value" id="val-remboursement">-</div>
+                        <div class="card-formula">(Emprunts - Disponibilités) / EBE</div>
+                        <p class="card-text" id="inter-remboursement">Le nombre d'années nécessaires pour effacer la
+                            Dette Nette avec les profits actuels.</p>
+                    </div>
+
+                </div>
+            </section>
+            </div> <!-- End export-content -->
+        </div>
+    </main>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
